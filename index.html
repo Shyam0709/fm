@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmEasy</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 100px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: #333;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #28a745;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .header {
+            background-image: url('/bg.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 2s ease-out;
+        }
+        .header h1 {
+            font-size: 5rem;
+            margin: 0;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.7);
+        }
+        .header p {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .buttons a {
+            display: inline-block;
+            padding: 15px 50px;
+            color: white;
+            background-color: #28a745;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .buttons a:hover {
+            background-color: #218838;
+            transform: translateY(-5px);
+        }
+
+        .content {
+            padding: 80px 100px;
+            background-color: #fff;
+            position: relative;
+            text-align: center;
+        }
+        .content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .content h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 5px;
+            background-color: #28a745;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .content p {
+            font-size: 1.3rem;
+            margin-bottom: 60px;
+            color: #6c757d;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .grid-item {
+            flex: 1;
+            position: relative;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            border-bottom: 5px solid #28a745;
+        }
+        .grid-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+        .wide-img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 60px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .wide-img:hover {
+            transform: scale(1.03);
+        }
+
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 100px;
+            font-size: 1rem;
+        }
+        .footer a {
+            color: #28a745;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 20px;
+            }
+            .navbar a {
+                margin-left: 0;
+                margin-bottom: 10px;
+                font-size: 1rem;
+            }
+            .logo {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .header {
+                height: 70vh;
+                padding: 0 20px;
+            }
+            .header h1 {
+                font-size: 2.5rem;
+                line-height: 1.3;
+                letter-spacing: 2px;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .buttons a {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+            .content h2 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            .content p {
+                font-size: 1rem;
+                margin-bottom: 40px;
+            }
+
+            .grid {
+                flex-direction: column;
+            }
+            .grid-item {
+                margin-bottom: 20px;
+            }
+
+            .data-visualization {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+            .data-item {
+                margin-bottom: 20px;
+            }
+            .icon img {
+                width: 60px;
+                height: 60px;
+            }
+            .counter {
+                font-size: 2.5rem;
+            }
+
+            .footer {
+                padding: 20px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="logo">FarmConnect</div>
+        <div>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content">
+            <h1>Empowering Farmers & Retailers</h1>
+            <p>Bridging the gap between farm and market with innovation and sustainability</p>
+            <div class="buttons">
+                <a href="signup.html">Sign Up</a>
+                <a href="signin.html">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <h2>Our Mission</h2>
+        <p>At FarmConnect, we aim to create a sustainable and efficient network that empowers farmers and retailers alike. Join us to revolutionize the way agriculture and commerce connect, ensuring a greener and more prosperous future for all.</p>
+        
+        <div class="grid">
+            <div class="grid-item">
+                <img src="/farmer.jpg" alt="Farmer in field"> 
+                <div class="overlay">Supporting Local Farmers</div>
+            </div>
+            <div class="grid-item">
+                <img src="/lush.jpeg" alt="Lush Green Farm"> 
+                <div class="overlay">Sustainable Agriculture</div>
+            </div>
+            <div class="grid-item">
+                <img src="/happiest.jpeg" alt="Happy Farmer"> 
+                <div class="overlay">Connecting Communities</div>
+            </div>
+        </div>
+        
+        <section class="data-visualization">
+            <div class="data-item">
+                <div class="icon">
+                    <img src="images.jpeg" alt="Farmers Icon"> 
+                </div>
+                <div class="counter" data-target="5000">0</div>
+                <p>Farmers Connected</p>
+            </div>
+            <div class="data-item">
+                <div class="icon">
+                    <img src="produce.png" alt="Produce Icon"> 
+                </div>
+                <div class="counter" data-target="120000">0</div>
+                <p>Tons of Produce Delivered</p>
+            </div>
+            <div class="data-item">
+                <div class="icon">
+                    <img src="ret.png" alt="Retailer Icon"> 
+                </div>
+                <div class="counter" data-target="2500">0</div>
+                <p>Retailer Connected</p>
+            </div>
+        </section>
+        
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 FarmEasy. All rights reserved.</p>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+    </footer>
+
+    <script>
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const speed = 200; 
+                const increment = target / speed;
+
+                if(count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 10);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+    </script>
+
+</body>
+</html>
